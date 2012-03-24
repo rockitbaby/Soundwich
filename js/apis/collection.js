@@ -22,6 +22,22 @@ function(
         }
       }  
     },
+    'musixmatch': function() {
+      return {
+        mirror: function(x) {
+          return x
+        },
+        query: function(req, cb) {
+          var settings = {
+            url: 'http://localhost:8888/proxy/musixmatch.php',
+            success: cb,
+            data: req,
+            type: 'GET'
+          }
+          $.ajax(settings);
+        }
+      }  
+    },
     'echonest': function() {
       return {
         

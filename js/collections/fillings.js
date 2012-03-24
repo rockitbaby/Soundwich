@@ -18,6 +18,13 @@ function (
       
       getByKey: function(key) {
         var found = this.find(function(model){ return model.get('key') == key; });
+        
+        /*
+        if(_.isUndefined(found)) {
+          console.log(typeof found);
+          console.error('Key ' + key + ' not found in Fillings');
+        }
+        */
         return found;
       },
       

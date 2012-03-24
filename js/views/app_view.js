@@ -42,6 +42,7 @@ function (
             parameters: {}
           },
           */
+          /*
           {
             order: 2,
             domID: _.uniqueId('filling-'),
@@ -59,9 +60,34 @@ function (
             }
           },
           {
-            order: 1,
+            order: 4,
             domID: _.uniqueId('filling-'),
             filling: FillingLibrary.getByKey('echonest.familiarity'),
+            parameter: {}
+          },
+          {
+            order: 5,
+            domID: _.uniqueId('filling-'),
+            filling: FillingLibrary.getByKey('echonest.terms'),
+            parameter: {}
+          },
+          {
+            order: 7,
+            domID: _.uniqueId('filling-'),
+            filling: FillingLibrary.getByKey('musixmatch.tracks'),
+            parameter: {}
+          },
+          {
+            order: 6,
+            domID: _.uniqueId('filling-'),
+            filling: FillingLibrary.getByKey('lastfm.topalbums'),
+            parameter: {}
+          },
+          */
+          {
+            order: 7,
+            domID: _.uniqueId('filling-'),
+            filling: FillingLibrary.getByKey('musixmatch.lyrics'),
             parameter: {}
           }
         ])

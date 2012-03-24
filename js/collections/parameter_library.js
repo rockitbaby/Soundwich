@@ -25,7 +25,15 @@ function (
       defaultValue: 'untitled'
     },
     {
-      key: 'song',
+      key: 'mbid.album',
+      defaultValue: 'untitled'
+    },
+    {
+      key: 'track',
+      defaultValue: 'untitled'
+    },
+    {
+      key: 'mbid.track',
       defaultValue: 'untitled'
     }
   ]);

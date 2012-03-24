@@ -51,13 +51,24 @@ function (
     
     prepare: function() {
       this.i = 0;
+      
+      
+      this.nextFilling({
+        'in': null,
+        'out': [{
+          type: 'mbid.track',
+          value: '9f7bac6a-0231-4fc3-b277-2a4c000ee606'
+        }]
+      });
+      /*
       this.nextFilling({
         'in': null,
         'out': [{
           type: 'artist',
-          value: 'Rolling Stones'
+          value: 'Lady Gaga'
         }]
       });
+      */
     },
     
     nextFilling: function(data) {
