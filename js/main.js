@@ -1,15 +1,19 @@
 define([
-  "require/order!jquery"
+  'require/order!jquery'
   , 'support/haml'
-  , "require/order!support/underscore.enriched"
-  , "require/order!support/backbone"
-  , "require/order!app"
+  , 'require/order!support/iscroll'
+  , 'require/order!support/underscore.enriched'
+  , 'require/order!support/backbone'
+  , 'require/order!support/jquery.transit'
+  , 'require/order!app'
   ],
 function(
   _jQuery
   , _Haml
+  , _iScroll
   , _underscore
   , _backbone
+  , _jqueryTransit
   , App
 ) {
   App.initialize(); 

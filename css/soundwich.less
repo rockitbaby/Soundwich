@@ -1,3 +1,103 @@
+html {
+  height: 100%;
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
 body {
   background-color: #CCC;
+  height: 100%;
+  margin: 0;
+  font-family: Helvetica Neue, Helvetica, sans-serif;
+}
+
+#app {
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+
+header {
+  width: 100%;
+  background-color: #234631;
+  color: #FFF;
+  height: 40px;
+}
+
+header .logo {
+  float: left;
+  font-family: 'Averia Sans Libre', cursive;
+  font-size: 30px;
+  line-height: 40px;
+  margin: 0 10px;
+  font-style: italic;
+}
+
+header .creator {
+  float: left;  
+}
+
+.soundwiches {
+  position: absolute;
+  bottom: 0;
+  height: 80%;
+  width: 100%;
+}
+
+.soundwich {
+  position: absolute;
+  width: 560px;
+  border: 1px solid yellow;
+  left: 50%;
+  margin-left: -280px;
+  bottom: 0;
+  overflow: hidden;
+}
+
+.soundwich .actions {
+  position: absolute;
+  top: 0;
+  width: 100%;
+  background-color: #FF0;
+  z-index: 11;
+  height: 40px;
+}
+
+.soundwich .actions div {
+  float: left;
+  margin: 0 10px;
+  line-height: 40px;
+}
+
+.rendering {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  -webkit-transform-origin: 50% 100%;
+}
+
+.bread {
+  width: 100%;
+  height: 120px;
+  background-color: #000;
+  color: #FFF;
+}
+
+.fillings {
+  border: 1px dashed #CCC;
+  width: 100%;
+}
+
+.filling {
+  height: 100px;
+  width: 100%;
+  background-color: #c91f3f;
+  border: 1px solid red;
+}
+
+.filling p {
+  font-family: 'Averia Sans Libre', cursive;
 }

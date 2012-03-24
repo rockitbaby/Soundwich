@@ -1,7 +1,9 @@
 define([
   'jquery'
+  , 'views/app_view'
 ], function(
   $
+  , AppView
 ) {
   
   var AppRouter = Backbone.Router.extend({
@@ -11,7 +13,7 @@ define([
     },
 
     defaultAction: function(actions) {
-       
+      AppView.render();
     }
   });
 
