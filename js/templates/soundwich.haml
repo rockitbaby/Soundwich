@@ -11,11 +11,10 @@
       .soundwich-content
         .bread.top
         .fillings
-          .filling
-            %p
-              The Amsterdam Music Hack Day is a full weekend of hacking in which participants will conceptualize, create and present their projects. Music + software + mobile + hardware + art + the web. Anything goes as long as it's music related.
-          .sep
-          .filling
-            %p
-              The Amsterdam Music Hack Day is a full weekend of hacking in which participants will conceptualize, create and present their projects. Music + software + mobile + hardware + art + the web. Anything goes as long as it's music related.
+          :each filling in fillings
+            .filling{id: filling.domID, style: 'display: none'}
+              .content
+                %p
+                  The Amsterdam Music Hack Day is a full weekend of hacking in which participants will conceptualize, create and present their projects. Music + software + mobile + hardware + art + the web. Anything goes as long as it's music related.
+              .sep
         .bread.bottom

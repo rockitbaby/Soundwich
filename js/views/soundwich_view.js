@@ -23,31 +23,65 @@ function (
     fitted: false,
     initialize: function(model) {
       this.model = model;
-      
+      this.model.get('fillings').orderdFillings();
       
     },
     
     render: function() {
       
       this.template = Haml(template);
-      this.el = this.$el = $(this.template({}));
+      
+      var data = this.model.toJSON();
+      data.fillings = this.model.get('fillings').orderdFillings();
+      _.each(data.fillings, function(fill, ix) {
+        data.fillings[ix] = fill.toJSON();
+      });
+      console.log(data.fillings);
+      this.el = this.$el = $(this.template(data));
       this.$rendering = this.$el.find('.rendering');
       this.$scroller = this.$el.find('.soundwich-scroller');
       this.$actions = this.$el.find('.actions');
       this.$fillings = this.$el.find('.fillings');
-      
-      fillings
       
       this.delegateEvents();
       
       return this;
     },
     
+    
+    prepare: function() {
+      this.i = 0;
+      this.nextFilling({'artist': 'Rolling Stones'});
+    },
+    
+    nextFilling: function(data) {
+      var fillings = this.model.get('fillings');
+      
+      var model = fillings.getNextToPrepare();
+      
+      if(model) {
+        var context = {
+          $el: this.$el.find('#' + model.get('domID')),
+          $content: this.$el.find('#' + model.get('domID') + ' .content'),
+          choose: _.bind(this.choose, this)
+        }
+        model.prepare(data, context, _.bind(this.nextFilling, this));
+      } else {
+        console.log("DONE SANDWICH MADE!!!");
+      }
+      
+      this.fitIntoWindow();
+    },
+    
+    choose: function(text, choices, cb) {
+      alert(text);
+      cb(choices[Math.floor(Math.random() * choices.length)]);
+    },
+    
     afterRender: function() {
       
       
       var id = _.uniqueId('soundwich-');
-      
       this.$scroller.attr('id', id);
       
       this.scroller = new iScroll(id, {
@@ -66,6 +100,7 @@ function (
       });
       
       this.fitIntoWindow();
+      this.prepare();
       
     },
     

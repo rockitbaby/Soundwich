@@ -29,10 +29,14 @@ function (
         description: 'Plays a coversong',
         fillings: new FillingStack([
           {
+            order: 1,
+            domID: _.uniqueId('filling-'),
             filling: FillingLibrary.getByKey('lastfm.coversongs'),
             parameters: {}
           },
           {
+            order: 2,
+            domID: _.uniqueId('filling-'),
             filling: FillingLibrary.getByKey('7digital.songplayer'),
             parameters: {}
           }

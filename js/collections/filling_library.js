@@ -26,6 +26,29 @@ function (
       returns: new ParameterTypes([
         ParameterLibrary.getByKey('song')
       ]),
+      exec: {
+        prepare: function(data, context, cb) {
+          console.log('preparing ' + this.get('name') + ' takes some time');
+          window.setTimeout(function() {
+            
+            context.$el.show();
+            context.$content.html('<div>Will now prepare you Sandwich. Talking to API:.</div>');
+            var choices = ['Album 1', 'Album 2', 'Album 3'];
+            
+            var choicesCallback = function(choice) {
+              console.log(' oh you choose ' + choice);
+              
+              context.$content.html(' oh you choose ' + choice);
+              context.$el.show();
+              data['return'] = choice;
+              cb(data);
+            }
+            context.choose('Please choose', choices, choicesCallback);
+            
+          }, 1000);
+          
+        } 
+      }
     },
     {
       name: 'salted songplayer',
