@@ -1,7 +1,7 @@
 define([
   'jquery'
   , 'views/soundwich_view'
-  , 'require/text!templates/app.haml'
+  , 'require/text!templates/app.haml'  + '?'  + (new Date).getTime()
 ],
 function (
   $

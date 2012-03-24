@@ -114,8 +114,12 @@ function (
       
       var colors = ['#c91f3f', '#44c910', '#890465', '#ebe1aa'];
       var color = colors[Math.floor(Math.random() * colors.length)];
-      var height = 80 + Math.floor(Math.random() * 100);
-      this.$el.find('.fillings').prepend('<div class="filling" style="background-color: ' + color + '; height: ' + height + 'px">Filling</div>');
+      var height = 80 + Math.floor(Math.random() * 300);
+      
+      var seps = ['sep-bread', 'sep-ketchup', 'sep-salad', 'sep-mayonaise', 'sep-xx'];
+      var sep = seps[Math.floor(Math.random() * seps.length - 1)];
+        
+      this.$el.find('.fillings').prepend('<div class="filling" style="background-color: ' + color + '; height: ' + height + 'px">Filling</div><div class="sep ' + sep + '"></div>');
       this.fitIntoWindow();
     },
     

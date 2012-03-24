@@ -8,21 +8,31 @@ html {
   user-select: none;
 }
 body {
-  background-color: #CCC;
+  background: #ffffff; /* Old browsers */
+  background: -moz-linear-gradient(-45deg,  #ffffff 0%, #f3f3f3 14%, #ffffff 34%, #ededed 95%, #ffffff 100%); /* FF3.6+ */
+  background: -webkit-gradient(linear, left top, right bottom, color-stop(0%,#ffffff), color-stop(14%,#f3f3f3), color-stop(34%,#ffffff), color-stop(95%,#ededed), color-stop(100%,#ffffff)); /* Chrome,Safari4+ */
+  background: -webkit-linear-gradient(-45deg,  #ffffff 0%,#f3f3f3 14%,#ffffff 34%,#ededed 95%,#ffffff 100%); /* Chrome10+,Safari5.1+ */
+  background: -o-linear-gradient(-45deg,  #ffffff 0%,#f3f3f3 14%,#ffffff 34%,#ededed 95%,#ffffff 100%); /* Opera 11.10+ */
+  background: -ms-linear-gradient(-45deg,  #ffffff 0%,#f3f3f3 14%,#ffffff 34%,#ededed 95%,#ffffff 100%); /* IE10+ */
+  background: linear-gradient(-45deg,  #ffffff 0%,#f3f3f3 14%,#ffffff 34%,#ededed 95%,#ffffff 100%); /* W3C */
+
   height: 100%;
   margin: 0;
   font-family: Helvetica Neue, Helvetica, sans-serif;
+  
+  background: #e4e3df url('css/bg.jpg') repeat-x top left;
 }
 
 #app {
   position: relative;
   width: 100%;
-  height: 100%;
+  height: 95%;
 }
 
 header {
   width: 100%;
   background-color: #234631;
+  box-shadow: 0 0 8px #333;
   color: #FFF;
   height: 40px;
 }
@@ -32,12 +42,31 @@ header .logo {
   font-family: 'Averia Sans Libre', cursive;
   font-size: 30px;
   line-height: 40px;
-  margin: 0 10px;
+  margin: 0 20px;
   font-style: italic;
+  font-weight: bold;
 }
 
-header .creator {
-  float: left;  
+header .logo span {
+  color: #f9e538;
+}
+
+header .info {
+  float: left;
+  font-size: 16px;
+  line-height: 20px;
+  font-family: 'Averia Sans Libre', cursive;
+  margin: 13px 0 0 20px;
+}
+
+header .info .title {
+  font-weight: bold;
+  color: #f9e538;
+  font-size: 20px;
+}
+
+header .info .recipe {
+  color: #d2d6d3;
 }
 
 .soundwiches {
@@ -50,20 +79,22 @@ header .creator {
 .soundwich {
   position: absolute;
   width: 560px;
-  border: 1px solid yellow;
   left: 50%;
   margin-left: -280px;
   bottom: 0;
   overflow: hidden;
+  _background: transparent url('css/sw-bg.jpg') no-repeat bottom left;
 }
 
 .soundwich .actions {
   position: absolute;
-  top: 0;
+  bottom: 0;
   width: 100%;
-  background-color: #FF0;
+  background-color: #cfa078;
   z-index: 11;
   height: 40px;
+  border-radius: 5px;
+  background: transparent url('css/wood.jpg') no-repeat bottom left;
 }
 
 .soundwich .actions div {
@@ -74,30 +105,84 @@ header .creator {
 
 .rendering {
   position: absolute;
-  bottom: 0;
+  bottom: 40px;
   width: 100%;
   -webkit-transform-origin: 50% 100%;
 }
 
 .bread {
-  width: 100%;
+  width: 90%;
+  margin: 0 auto;
   height: 120px;
-  background-color: #000;
+  background-color: #d7c191;
+  _background-color: #ad792a;
   color: #FFF;
+  background: transparent url('css/bread.jpg') no-repeat top left;
+}
+
+.bread.top {
+  border-radius: 30px 30px 0 0;
+}
+
+.bread.bottom {
+  border-radius: 0 0 30px 30px;
+  background: transparent url('css/bread.jpg') no-repeat bottom left;
 }
 
 .fillings {
-  border: 1px dashed #CCC;
   width: 100%;
 }
 
 .filling {
   height: 100px;
-  width: 100%;
+  width: 98%;
   background-color: #c91f3f;
-  border: 1px solid red;
+  margin: 10px auto;
+  margin: 0 auto;
+}
+
+.sep {
+  height: 5px;
+  width: 100%;
+  background-color: #939322;
+  margin: 2px auto;
+}
+
+.sep-bread {
+  width: 95%;
+  margin: 0 auto;
+  height: 80px;
+  border-radius: 20px;
+  margin: 4px auto;
+  background: transparent url('css/bread.jpg') no-repeat 50% 50%;
+}
+
+.sep-ketchup {
+  width: 100%;
+  margin: 0 auto;
+  height: 8px;
+  margin: 2px auto;
+  border-radius: 10px;
+  background-color: #F00;
+}
+
+.sep-salad {
+  height: 1px;
+  width: 100%;
+  background-color: #939322;
+  border: 10px dotted #5d930f;
+  margin: 2px auto;
+}
+
+.sep-mayonaise {
+  height: 2px;
+  width: 95%;
+  border: 10px dashed #fdf9e7;
+  background-color: #FFF;
+  margin: 2px auto;
 }
 
 .filling p {
+  margin: 0;
   font-family: 'Averia Sans Libre', cursive;
 }
