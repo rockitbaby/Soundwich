@@ -65,6 +65,10 @@ function (
     }
   ]);
   
+  
+  FillingLibrary.loadFillingDefinition('js/fillings/lastfm.similarartists.js');
+  FillingLibrary.loadFillingDefinition('js/fillings/echonest.familiarity.js');
+    
   return FillingLibrary;
   
 });

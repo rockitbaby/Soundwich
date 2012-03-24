@@ -51,7 +51,13 @@ function (
     
     prepare: function() {
       this.i = 0;
-      this.nextFilling({'artist': 'Rolling Stones'});
+      this.nextFilling({
+        'in': null,
+        'out': [{
+          type: 'artist',
+          value: 'Rolling Stones'
+        }]
+      });
     },
     
     nextFilling: function(data) {
@@ -59,11 +65,14 @@ function (
       
       var model = fillings.getNextToPrepare();
       
+      data['in'] = data['out'];
+      
       if(model) {
         var context = {
           $el: this.$el.find('#' + model.get('domID')),
           $content: this.$el.find('#' + model.get('domID') + ' .content'),
-          choose: _.bind(this.choose, this)
+          choose: _.bind(this.choose, this),
+          unsupportedInput: _.bind(this.choose, this)
         }
         model.prepare(data, context, _.bind(this.nextFilling, this));
       } else {
@@ -74,8 +83,11 @@ function (
     },
     
     choose: function(text, choices, cb) {
-      alert(text);
       cb(choices[Math.floor(Math.random() * choices.length)]);
+    },
+    
+    unsupportedInput: function() {
+      alert("Unsupported");
     },
     
     afterRender: function() {

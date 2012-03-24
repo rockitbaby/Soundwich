@@ -18,8 +18,13 @@ function (
       API: null,
       accepts: new ParameterTypes(),
       returns: new ParameterTypes(),
+      templateText: '',
+      definitionFile: null,
+      parameter: {
+        
+      },
       exec: {
-        prepare: function(data, context, cb) {
+        prepare: function(data, parameter, context, cb) {
           // context.$el
           // context.choose(text, choices, callback)
           context.$el.show();
@@ -29,13 +34,32 @@ function (
       }
     },
     
-    prepare: function(data, context, cb) {
+    
+    API: function() {
+      return this.get('API');
+    },
+    
+    input: function(data, type) {
+
+      var found = _.filter(data['in'], function(d) { console.log(d); return (d.type == type)});
+      
+      if(_.isUndefined(found)) {
+        return null;
+      }
+      if(!found.length) {
+        return null;
+      }
+      return found[0];
+    },
+    
+    prepare: function(data, parameter, context, cb) {
       var exec = this.get('exec');
       if(!_.isFunction(exec.prepare)) {
         cb(data)
         return true;
       }
-      return exec.prepare.apply(this, [data, context, cb]);
+      var parameter = _.extend(this.get('parameter'), parameter);
+      return exec.prepare.apply(this, [data, parameter, context, cb]);
     }
     
   });

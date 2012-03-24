@@ -13,6 +13,14 @@ function (
       defaultValue: 'The Beatles'
     },
     {
+      key: 'echonest.artist',
+      defaultValue: ''
+    },
+    {
+      key: 'mbid.artist',
+      defaultValue: ''
+    },
+    {
       key: 'album',
       defaultValue: 'untitled'
     },

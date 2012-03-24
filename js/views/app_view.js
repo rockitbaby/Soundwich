@@ -23,26 +23,52 @@ function (
     soundwichViews: [],
     initialize: function() {
       
+      FillingLibrary.onLoaded(_.bind(this.createSoundwich, this));
+      
+    },
+    
+    createSoundwich: function() {
+      console.log("CREATE SOUNDWICH");
       var recipe = new SoundwichRecipe({
         name: 'Small Coversong Club',
         creator: 'Michael',
         description: 'Plays a coversong',
         fillings: new FillingStack([
+          /*
           {
             order: 1,
             domID: _.uniqueId('filling-'),
             filling: FillingLibrary.getByKey('lastfm.coversongs'),
             parameters: {}
           },
+          */
           {
             order: 2,
             domID: _.uniqueId('filling-'),
-            filling: FillingLibrary.getByKey('7digital.songplayer'),
-            parameters: {}
+            filling: FillingLibrary.getByKey('lastfm.similarartist'),
+            parameter: {
+              nArtist: 0,
+            }
+          },
+          {
+            order: 3,
+            domID: _.uniqueId('filling-'),
+            filling: FillingLibrary.getByKey('lastfm.similarartist'),
+            parameter: {
+              nArtist: 3,
+            }
+          },
+          {
+            order: 1,
+            domID: _.uniqueId('filling-'),
+            filling: FillingLibrary.getByKey('echonest.familiarity'),
+            parameter: {}
           }
         ])
       });
       this.soundwichViews.push(new SoundwichView(recipe));
+      
+      this.render();
     },
     
     render: function() {

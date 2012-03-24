@@ -10,13 +10,32 @@ function(
       return {
         mirror: function(x) {
           return x
+        },
+        query: function(req, cb) {
+          var settings = {
+            url: 'http://localhost:8888/proxy/lastfm.php',
+            success: cb,
+            data: req,
+            type: 'GET'
+          }
+          $.ajax(settings);
         }
       }  
     },
-    '7digital': function() {
+    'echonest': function() {
       return {
-        mirror: function(x) {
-          return x
+        
+        query: function(method, req, cb) {
+          req['api_key'] = 'CQXLYWLZAWMTNOUAW';
+          req['format'] = 'jsonp';
+          var settings = {
+            url: 'http://developer.echonest.com/api/v4/' + method,
+            success: cb,
+            data: req,
+            type: 'GET',
+            dataType: "jsonp"
+          }
+          $.ajax(settings);
         }
       }  
     },
