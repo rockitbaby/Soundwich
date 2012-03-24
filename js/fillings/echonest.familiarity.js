@@ -40,14 +40,20 @@
         }
       }
       
+      var t = this.template();
+      
       this.API().query('artist/familiarity', req, function(res) {
         
         var response = res.response;
         
         context.$el.show();
-        context.$content.height(80);
-        var h = '<div class="score">' + Math.round(response.artist.familiarity * 100) + '%</div>';
-        h += 'Familiarity Score for ' + response.artist.name + ' by echonest';
+        context.$content.css('height', 'auto');
+        
+        var h = t({
+          score: Math.round(response.artist.familiarity * 100),
+          artist_origin: response.artist.name
+        });
+        
         context.$content.html(h);
         
         data['out'] = [
@@ -70,3 +76,14 @@
 
 
 /* template */
+
+<div class="box echonest echonest-familiarity">
+  <h2 class="title">Familiarity Score</h2>
+  <div class="scoop">
+    <h3><%= score %>%</h3>
+    <p>for <%= artist_origin %></p>
+  </div>
+  <div class="credits">
+    provided by echonest
+  </div>
+</div>

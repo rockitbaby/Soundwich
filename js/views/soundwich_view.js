@@ -13,6 +13,7 @@ function (
       'click .filling': 'zoomTo',
       'click .zoom-in': 'zoomInClicked',
       'click .zoom-out': 'zoomOutClicked',
+      'click .restart': 'restartClicked',
     },
     
     $rendering: $,
@@ -21,8 +22,10 @@ function (
     $filling: $,
     scroller: null,
     fitted: false,
-    initialize: function(model) {
+    initialInput: null,
+    initialize: function(model, initialInput) {
       this.model = model;
+      this.initialInput = initialInput;
       this.model.get('fillings').orderdFillings();
       
     },
@@ -52,7 +55,7 @@ function (
     prepare: function() {
       this.i = 0;
       
-      
+      /*
       this.nextFilling({
         'in': null,
         'out': [{
@@ -60,15 +63,11 @@ function (
           value: '9f7bac6a-0231-4fc3-b277-2a4c000ee606'
         }]
       });
-      /*
+      */
       this.nextFilling({
         'in': null,
-        'out': [{
-          type: 'artist',
-          value: 'Lady Gaga'
-        }]
+        'out': [this.initialInput]
       });
-      */
     },
     
     nextFilling: function(data) {
@@ -130,6 +129,14 @@ function (
     addNewFilling: function(e) {
       e.preventDefault();
       this.addFillingToFillings();
+    },
+    
+    restartClicked: function(e) {
+      
+    },
+    
+    restart: function() {
+      
     },
     
     zoomTo: function(e) {
@@ -212,7 +219,7 @@ function (
       }
       
       this.fitted = true;
-      this.$el.height(this.$rendering.height() * scale + 40);
+      this.$el.height(this.$rendering.height() * scale + 60);
     },
     
     zoomScrollToFilling: function() {

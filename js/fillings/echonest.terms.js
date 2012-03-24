@@ -39,21 +39,26 @@
         }
       }
       
+      var t = this.template();
+      
       this.API().query('artist/profile', req, function(res) {
         
         var response = res.response;
         
         context.$el.show();
         context.$content.css('height', 'auto');
-        var h = '<div class="terms">';
-        
+        var terms = '';
         _.each(response.artist.terms, function(term) {
-          if(term.frequency > 0.8) {
-            h += '<span class="term" style="font-size: ' + (5 + (term.frequency * 20)) + 'px">' + term.name + '</span> ';
+          if(term.frequency > 0.6) {
+            terms += '<span class="term" style="font-size: ' + (8 + (term.frequency * 40)) + 'px">' + term.name + ' / </span> ';
           }
         });
-        h += '</div>';
-        h += 'Terms for ' + response.artist.name + ' by echonest';
+
+        var h = t({
+          terms: terms,
+          artist_origin: response.artist.name
+        });
+        
         context.$content.html(h);
         
         data['out'] = [
@@ -76,3 +81,13 @@
 
 
 /* template */
+
+<div class="box echonest echonest-terms">
+  <h2 class="title">Terms that describe <%= artist_origin %></h2>
+  <div class="terms">
+    <%= terms %>
+  </div>
+  <div class="credits">
+    provided by echonest
+  </div>
+</div>

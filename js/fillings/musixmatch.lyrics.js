@@ -34,18 +34,22 @@
         return;
       }
       
-      var tmplText = this.get('templateText');
+      var t = this.template();
       this.API().query(req, function(res) {
         
         console.log(res);
         var lyrics = res.message.body.lyrics.lyrics_body;
 
         context.$el.show();
-        context.$el.append(tmplText);
         context.$content.css('height', 'auto');
         var h = '<div class="lyrics">';
         h += lyrics.replace(/\n/g, '<br />');
         h += '</div>';
+        
+        var h = t({
+          track_title: 'unknown',
+          lyrics: lyrics.replace(/\n/g, '<br />')
+        });
         context.$content.html(h);
         
         data['out'] = data['in'];
@@ -59,9 +63,13 @@
 
 
 /* template */
-<style type="text/css">
-  .lyrics {
-    text-align: center;
-    padding: 20px;
-  }
-</style>
+
+<div class="box musixmatch musixmatch-lyrics">
+  <h2 class="title">Lyrics for <%= track_title %></h2>
+  <div class="lyrics">
+    <%= lyrics %>
+  </div>
+  <div class="credits">
+    provided by musixmatch
+  </div>
+</div>

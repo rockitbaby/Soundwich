@@ -42,15 +42,24 @@
         }
       }
       
+      var t = this.template();
+      
       this.API().query(req, function(res) {
         
         console.log(res);
         var artist = res.similarartists.artist[parameter.nArtist];
         context.$el.show();
-        context.$content.height(200);
+        
+        var h = t({
+          artist_name: artist.name,
+          img_src: artist.image[2]['#text'],
+          artist_origin: res.similarartists['@attr'].artist
+        });
+        /*
         var h = '<img src="' + artist.image[2]['#text'] + '">';
         h += artist.name;
         h += ' is similar to ' + res.similarartists['@attr'].artist;
+        */
         context.$content.html(h);
         
         data['out'] = [
@@ -73,3 +82,17 @@
 
 
 /* template */
+
+<div class="box lastfm lastfm-similarartist">
+  <h2 class="title">Similar Artist</h2>
+  <div class="scoop">
+    <h3><%= artist_name %></h3>
+    <p>is similar to <%= artist_origin %></p>
+  </div>
+  <div class="img">
+    <img src="<%= img_src %>" />
+  </div>
+  <div class="credits">
+    says last.fm
+  </div>
+</div>

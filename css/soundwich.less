@@ -20,7 +20,7 @@ body {
   margin: 0;
   font-family: Helvetica Neue, Helvetica, sans-serif;
   
-  background: #e4e3df url('css/bg.jpg') repeat-x top left;
+  background: #e4e3df url('css/bg.jpg') repeat-x bottom left;
 }
 
 #app {
@@ -29,6 +29,7 @@ body {
   height: 95%;
 }
 
+/*
 header {
   width: 100%;
   background-color: #234631;
@@ -68,20 +69,66 @@ header .info .title {
 header .info .recipe {
   color: #d2d6d3;
 }
+*/
+
+header {
+  width: 100%;
+  background-color: #000;
+  box-shadow: 0 0 1px #333;
+  color: #FFF;
+  height: 40px;
+  position: fixed;
+}
+
+header .logo {
+  float: left;
+  _font-family: 'Averia Sans Libre', cursive;
+  font-size: 30px;
+  line-height: 40px;
+  margin: 0 20px;
+  font-weight: bold;
+}
+
+header .logo span {
+  color: #CCC;
+}
+
+header .info {
+  display: none;
+  float: left;
+  font-size: 16px;
+  line-height: 20px;
+  _font-family: 'Averia Sans Libre', cursive;
+  margin: 13px 0 0 20px;
+}
+
+header .info .title {
+  font-weight: bold;
+  color: #f9e538;
+  font-size: 20px;
+}
+
+header .info .recipe {
+  color: #d2d6d3;
+}
 
 .soundwiches {
   position: absolute;
-  bottom: 0;
+  bottom: 40px;
   height: 80%;
   width: 100%;
 }
 
 .soundwich {
-  position: absolute;
-  width: 560px;
+  position: relative;
+  float: left;
+  width: 500px;
+  margin: 0 40px;
+  /*
   left: 50%;
   margin-left: -280px;
   bottom: 0;
+  */
   overflow: hidden;
   _background: transparent url('css/sw-bg.jpg') no-repeat bottom left;
 }
@@ -90,22 +137,26 @@ header .info .recipe {
   position: absolute;
   bottom: 0;
   width: 100%;
-  background-color: #cfa078;
   z-index: 11;
   height: 40px;
-  border-radius: 5px;
-  background: transparent url('css/wood.jpg') no-repeat bottom left;
+  _background: transparent url('css/wood.jpg') no-repeat bottom left;
+  border-top: 1px solid #000;
+}
+
+.soundwich .actions .title {
+  width: 100%;
+  text-align: center;
 }
 
 .soundwich .actions div {
   float: left;
   margin: 0 10px;
-  line-height: 40px;
+  line-height: 20px;
 }
 
 .rendering {
   position: absolute;
-  bottom: 40px;
+  bottom: 60px;
   width: 100%;
   -webkit-transform-origin: 50% 100%;
 }
@@ -120,13 +171,23 @@ header .info .recipe {
   background: transparent url('css/bread.jpg') no-repeat top left;
 }
 
+.bread {
+  width: 480px;
+  margin: 0 auto;
+  height: 200px;
+  background: none;
+  background-color: #000;
+  background: transparent url('css/speaker-top.gif') no-repeat 50% 50%;
+}
+
 .bread.top {
-  border-radius: 30px 30px 0 0;
+  _border-radius: 30px 30px 0 0;
+  margin: 0 auto 20px;
 }
 
 .bread.bottom {
   border-radius: 0 0 30px 30px;
-  background: transparent url('css/bread.jpg') no-repeat bottom left;
+  background: transparent url('css/speaker-bottom.gif') no-repeat 50% 50%;
 }
 
 .fillings {
@@ -138,17 +199,75 @@ header .info .recipe {
 }
 
 .filling .content {
-  height: 100px;
-  width: 98%;
-  background-color: #c91f3f;
+  width: 420px;
+  height: 400px;
+  background-color: #FFF;
   margin: 0 auto;
 }
 
+.filling .content .box {
+  padding: 20px 40px;
+}
+
+.filling .content h2 {
+  margin: 0;
+  font-size: 12px;
+  font-weight: normal;
+  border-bottom: 1px solid #000;
+  text-transform: uppercase;
+}
+
+.filling .content .scoop {
+  font-size: 48px;
+  font-weight: light;
+  font-family: Georgia;
+}
+
+.filling .content .terms {
+  font-family: Georgia;
+}
+
+.filling .content .scoop h3 {
+  font-size: 48px;
+  line-height: 48px;
+  font-weight: normal;
+  font-family: Georgia;
+  margin: 3px 0 0 0;
+}
+
+.filling .content .scoop p {
+  font-size: 12px;
+  font-weight: light;
+  font-family: Georgia;
+  margin: 0;
+}
+
+.filling .content .img {
+  margin: 40px 0;
+}
+
+.filling .content .img img {
+  display: block;
+  padding: 5px;
+  border: 1px solid #000;
+  margin: 0 auto;
+  background-color: RGBA(255, 255, 255, 0.2);
+}
+
+.filling .content .credits {
+  border-top: 1px solid #000;
+  font-size: 12px;
+  font-weight: normal;
+  text-transform: uppercase;
+  margin-top: 20px;
+}
+
 .filling .sep {
-  height: 5px;
-  width: 100%;
-  background-color: #939322;
-  margin: 2px auto;
+  height: 14px;
+  width: 460px;
+  background-color: #FFF;
+  margin: 16px auto;
+  background: transparent url('css/sep.gif') no-repeat 50% 50%;
 }
 
 .sep {

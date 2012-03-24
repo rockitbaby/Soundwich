@@ -39,6 +39,10 @@ function (
       return this.get('API');
     },
     
+    template: function() {
+      return _.template(this.get('templateText'));
+    },
+    
     input: function(data, type) {
 
       var found = _.filter(data['in'], function(d) { console.log(d); return (d.type == type)});

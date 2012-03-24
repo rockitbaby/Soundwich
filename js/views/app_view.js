@@ -28,21 +28,11 @@ function (
     },
     
     createSoundwich: function() {
-      console.log("CREATE SOUNDWICH");
       var recipe = new SoundwichRecipe({
-        name: 'Small Coversong Club',
+        name: 'Amsterdam Dagwood',
         creator: 'Michael',
         description: 'Plays a coversong',
         fillings: new FillingStack([
-          /*
-          {
-            order: 1,
-            domID: _.uniqueId('filling-'),
-            filling: FillingLibrary.getByKey('lastfm.coversongs'),
-            parameters: {}
-          },
-          */
-          /*
           {
             order: 2,
             domID: _.uniqueId('filling-'),
@@ -71,12 +61,7 @@ function (
             filling: FillingLibrary.getByKey('echonest.terms'),
             parameter: {}
           },
-          {
-            order: 7,
-            domID: _.uniqueId('filling-'),
-            filling: FillingLibrary.getByKey('musixmatch.tracks'),
-            parameter: {}
-          },
+          /*
           {
             order: 6,
             domID: _.uniqueId('filling-'),
@@ -84,15 +69,64 @@ function (
             parameter: {}
           },
           */
+          /*
+          {
+            order: 7,
+            domID: _.uniqueId('filling-'),
+            filling: FillingLibrary.getByKey('musixmatch.tracks'),
+            parameter: {}
+          },
+          
           {
             order: 7,
             domID: _.uniqueId('filling-'),
             filling: FillingLibrary.getByKey('musixmatch.lyrics'),
             parameter: {}
           }
+          */
         ])
       });
-      this.soundwichViews.push(new SoundwichView(recipe));
+      this.soundwichViews.push(new SoundwichView(recipe, {
+        type: 'artist',
+        value: 'Lady Gaga'
+      }));
+      
+      var recipe2 = new SoundwichRecipe({
+        name: 'Big Club',
+        creator: 'Michael',
+        description: 'Plays a coversong',
+        fillings: new FillingStack([
+          {
+            order: 6,
+            domID: _.uniqueId('filling-'),
+            filling: FillingLibrary.getByKey('echonest.terms'),
+            parameter: {}
+          },
+        ])
+      });
+      this.soundwichViews.push(new SoundwichView(recipe2, {
+        type: 'artist',
+        value: 'Tocotronic'
+      }));
+      
+      var recipe2 = new SoundwichRecipe({
+        name: 'Paddington Lyrics',
+        creator: 'Michael',
+        description: 'Plays a coversong',
+        fillings: new FillingStack([
+          {
+            order: 6,
+            domID: _.uniqueId('filling-'),
+            filling: FillingLibrary.getByKey('musixmatch.lyrics'),
+            parameter: {}
+          },
+        ])
+      });
+      this.soundwichViews.push(new SoundwichView(recipe2, {
+        type: 'mbid.track',
+        value: '028efe7f-cdfb-4135-846f-848f2fff15b1'
+      }));
+      
       
       this.render();
     },
@@ -105,11 +139,13 @@ function (
       $('#app').replaceWith(this.$el);
       
       var $soundwiches = this.$el.find('.soundwiches');
+      var n = 0;
       _.each(this.soundwichViews, function(soundwichView) {
         $soundwiches.append(soundwichView.render().$el);
         soundwichView.afterRender();
+        n++;
       });
-      
+      $soundwiches.width(n * 600);
       return this;
     },
         

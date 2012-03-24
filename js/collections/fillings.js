@@ -49,11 +49,11 @@ function (
       
       loadFillingDefinition: function(file, cb) {
         this.loaded++;
-        require(['require/text!' + file + '?v=' + Math.random()], _.bind(function(shapeDef) {
+        require(['require/text!' + file + '?v=' + Math.random()], _.bind(function(fillingDef) {
 
-          var parts = shapeDef.split('/* template */');
+          var parts = fillingDef.split('/* template */');
 
-var obj = eval('(' + parts[0] + ')');
+          var obj = eval('(' + parts[0] + ')');
 
           try {
             var obj = eval('(' + parts[0] + ')');
