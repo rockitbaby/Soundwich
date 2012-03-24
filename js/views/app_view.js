@@ -1,11 +1,17 @@
 define([
   'jquery'
   , 'views/soundwich_view'
+  , 'collections/filling_library'
+  , 'collections/filling_stack'
+  , 'models/soundwich_recipe'
   , 'require/text!templates/app.haml'  + '?'  + (new Date).getTime()
 ],
 function (
   $
   , SoundwichView
+  , FillingLibrary
+  , FillingStack
+  , SoundwichRecipe
   , template
 ) {
   var AppView = Backbone.View.extend({
@@ -17,7 +23,22 @@ function (
     soundwichViews: [],
     initialize: function() {
       
-      this.soundwichViews.push(new SoundwichView());
+      var recipe = new SoundwichRecipe({
+        name: 'Small Coversong Club',
+        creator: 'Michael',
+        description: 'Plays a coversong',
+        fillings: new FillingStack([
+          {
+            filling: FillingLibrary.getByKey('lastfm.coversongs'),
+            parameters: {}
+          },
+          {
+            filling: FillingLibrary.getByKey('7digital.songplayer'),
+            parameters: {}
+          }
+        ])
+      });
+      this.soundwichViews.push(new SoundwichView(recipe));
     },
     
     render: function() {

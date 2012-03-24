@@ -18,9 +18,11 @@ function (
     $rendering: $,
     $scroller: $,
     $actions: $,
+    $filling: $,
     scroller: null,
     fitted: false,
-    initialize: function() {
+    initialize: function(model) {
+      this.model = model;
       
       
     },
@@ -32,6 +34,10 @@ function (
       this.$rendering = this.$el.find('.rendering');
       this.$scroller = this.$el.find('.soundwich-scroller');
       this.$actions = this.$el.find('.actions');
+      this.$fillings = this.$el.find('.fillings');
+      
+      fillings
+      
       this.delegateEvents();
       
       return this;
