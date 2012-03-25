@@ -1,6 +1,6 @@
 {
   name: 'similar taste',
-  key: 'lastfm.similarartist',
+  key: 'lastfm.similarartists',
   author: 'Michael Schieben <babre@rockitbaby.de>',
   description: 'Finds similar artists',
   API: APIFactory.get('lastfm'),

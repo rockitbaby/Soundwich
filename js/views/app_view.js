@@ -63,13 +63,89 @@ function (
       
       this.loaded = true;
       
-      console.log("THIS IS THE SOUNDWICH");
-      console.log(soundwich);
-      
-      console.log("THIS IS THE SOUNDWICH");
-      
       this.soundwichViews.push(new SoundwichView(soundwich));
+      
       this.render();
+    },
+    
+    fake: function() {
+      
+      
+      var recipe = new SoundwichRecipe({
+        name: 'Similar elsewhere',
+        key: 'Monte Christo',
+        creator: 'Michael',
+        description: 'Plays a coversong',
+        fillings: new FillingStack([
+          {
+            order: 1,
+            domID: _.uniqueId('filling-'),
+            filling: FillingLibrary.getByKey('soundwidge.askforartist'),
+            parameter: {
+              question: 'Which artist made the first record you bought?',
+              defaultValue: 'Beastie Boys',
+              subline: 'made the first record you bought'
+            }
+          },
+          {
+            order: 2,
+            domID: _.uniqueId('filling-'),
+            filling: FillingLibrary.getByKey('lastfm.similarartists'),
+            parameter: {
+              nArtist: 0,
+            }
+          },
+          {
+            order: 3,
+            domID: _.uniqueId('filling-'),
+            filling: FillingLibrary.getByKey('musicmetric.countries'),
+            parameter: {
+              nArtist: 0,
+            }
+          },
+          {
+            order: 4,
+            domID: _.uniqueId('filling-'),
+            filling: FillingLibrary.getByKey('lastfm.similarartists'),
+            parameter: {
+              nArtist: 1,
+            }
+          },
+          {
+            order: 4,
+            domID: _.uniqueId('filling-'),
+            filling: FillingLibrary.getByKey('lastfm.similarartists'),
+            parameter: {
+              nArtist: 2,
+            }
+          },
+          {
+            order: 5,
+            domID: _.uniqueId('filling-'),
+            filling: FillingLibrary.getByKey('musicmetric.countries'),
+            parameter: {
+              nArtist: 0,
+            }
+          },
+        ])
+      });
+      
+      var fs = [];
+      recipe.get('fillings').each(function(filling) {
+        var fj = filling.toJSON();
+        console.log(fj.filling);
+        fj.filling = fj.filling.get('key');
+        fs.push(fj);
+      });
+      
+      var data = recipe.toJSON();
+      data.fillings = fs;
+      
+      console.log("SOUNDWICH DATA");
+      console.log(JSON.stringify(data));
+      
+      this.soundwichViews.push(new SoundwichView(recipe));
+      
     },
     
     soundwichLoadError: function(data, id) {
@@ -90,6 +166,7 @@ function (
       var SoundwichLibrary = new SoundwichRecipes();
       SoundwichLibrary.loadSoundwich('amsterdam', _.bind(this.soundwichLoaded, this));
       
+      
       /*
       SoundwichLibrary.loadSoundwich('amsterdam', _.bind(function(soundwich) {
         console.log("SOUNDWICH FROM SERVER");
@@ -102,7 +179,7 @@ function (
       return;
       
       var recipe = new SoundwichRecipe({
-        name: 'Amsterdam Dagwood',
+        name: 'Paddington Lyrics',
         creator: 'Michael',
         description: 'Plays a coversong',
         fillings: new FillingStack([
@@ -111,21 +188,23 @@ function (
             domID: _.uniqueId('filling-'),
             filling: FillingLibrary.getByKey('soundwidge.askforartist'),
             parameter: {
-              question: 'Which artist played your favorite live show?',
-              defaultValue: 'Lady Gaga',
-              subline: 'Played your favorite live show'
+              question: 'Which artist made the first record you bought?',
+              defaultValue: 'Beastie Boys',
+              subline: 'made the first record you bought'
             }
           },
           {
             order: 2,
             domID: _.uniqueId('filling-'),
-            filling: FillingLibrary.getByKey('echonest.familiarity'),
-            parameter: {}
+            filling: FillingLibrary.getByKey('lastfm.similiarartists'),
+            parameter: {
+              nArtist: 0,
+            }
           },
           {
             order: 3,
             domID: _.uniqueId('filling-'),
-            filling: FillingLibrary.getByKey('lastfm.similarartist'),
+            filling: FillingLibrary.getByKey('musicmetric.countries'),
             parameter: {
               nArtist: 0,
             }
@@ -133,46 +212,19 @@ function (
           {
             order: 4,
             domID: _.uniqueId('filling-'),
-            filling: FillingLibrary.getByKey('echonest.familiarity'),
-            parameter: {}
+            filling: FillingLibrary.getByKey('lastfm.similiarartists'),
+            parameter: {
+              nArtist: 2,
+            }
           },
           {
             order: 5,
             domID: _.uniqueId('filling-'),
-            filling: FillingLibrary.getByKey('echonest.terms'),
-            parameter: {}
-          },
-          {
-            order: 6,
-            domID: _.uniqueId('filling-'),
-            filling: FillingLibrary.getByKey('lastfm.topalbums'),
+            filling: FillingLibrary.getByKey('musicmetric.countries'),
             parameter: {
-              nArtist: 3,
+              nArtist: 0,
             }
           },
-          /*
-          {
-            order: 6,
-            domID: _.uniqueId('filling-'),
-            filling: FillingLibrary.getByKey('lastfm.topalbums'),
-            parameter: {}
-          },
-          */
-          /*
-          {
-            order: 7,
-            domID: _.uniqueId('filling-'),
-            filling: FillingLibrary.getByKey('musixmatch.tracks'),
-            parameter: {}
-          },
-          
-          {
-            order: 7,
-            domID: _.uniqueId('filling-'),
-            filling: FillingLibrary.getByKey('musixmatch.lyrics'),
-            parameter: {}
-          }
-          */
         ])
       });
       
@@ -191,7 +243,8 @@ function (
       //this.soundwichViews.push(new SoundwichView(recipe));
       
       var recipe2 = new SoundwichRecipe({
-        name: 'Big Club',
+        name: 'Salted Lyrics Club Sandwich',
+        key: 'lyrics',
         creator: 'Michael',
         description: 'Plays a coversong',
         fillings: new FillingStack([
