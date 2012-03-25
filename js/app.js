@@ -19,18 +19,19 @@ define([
   var AppRouter = Backbone.Router.extend({
     routes: {
       // Default
+      'eat/:id': 'eat',
       '*actions': 'defaultAction'
     },
 
     defaultAction: function(actions) {
-      
-      console.log(ParameterLibrary.getByKey('artist'));
-      console.log(FillingLibrary.getByKey('lastfm.coversongs'));
-      
 
+      //AppView.render();
       
-      AppView.render();
-      
+    },
+    
+    eat: function(id) {
+      console.log("EAT Amsterdam");
+      AppView.loadSoundwich(id);
     }
   });
 

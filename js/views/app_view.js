@@ -3,6 +3,7 @@ define([
   , 'views/soundwich_view'
   , 'collections/filling_library'
   , 'collections/filling_stack'
+  , 'collections/soundwich_recipes'
   , 'models/soundwich_recipe'
   , 'require/text!templates/app.haml'  + '?'  + (new Date).getTime()
 ],
@@ -11,6 +12,7 @@ function (
   , SoundwichView
   , FillingLibrary
   , FillingStack
+  , SoundwichRecipes
   , SoundwichRecipe
   , template
 ) {
@@ -21,13 +23,84 @@ function (
     },
     
     soundwichViews: [],
+    booting: true,
     initialize: function() {
+      FillingLibrary.onLoaded(_.bind(this.bootingFinished, this));
+    },
+    
+    soundwichToLoad: null,
+    loadSoundwich: function(id) {
       
-      FillingLibrary.onLoaded(_.bind(this.createSoundwich, this));
+      if(this.boting) {
+        this.soundwichToLoad = id;
+      } else {
+        $('#app').html('').append('<div class="modal loading"><div class="content">Loading Soundwich ' + id + '</div></div>');
+        var SoundwichLibrary = new SoundwichRecipes();
+        SoundwichLibrary.loadSoundwich(id, _.bind(this.soundwichLoaded, this), _.bind(this.soundwichLoadError, this));
+      }
       
     },
     
+    render: function() {
+      
+      this.template = Haml(template);
+      this.el = this.$el = $(this.template({}));
+      
+      $('#app').replaceWith(this.$el);
+      
+      var $soundwiches = this.$el.find('.soundwiches');
+      var n = 0;
+      _.each(this.soundwichViews, function(soundwichView) {
+        $soundwiches.append(soundwichView.render().$el);
+        soundwichView.afterRender();
+        n++;
+      });
+      $soundwiches.width(n * 600);
+      return this;
+    },
+    loaded: false,
+    soundwichLoaded: function(soundwich) {
+      
+      this.loaded = true;
+      
+      console.log("THIS IS THE SOUNDWICH");
+      console.log(soundwich);
+      
+      console.log("THIS IS THE SOUNDWICH");
+      
+      this.soundwichViews.push(new SoundwichView(soundwich));
+      this.render();
+    },
+    
+    soundwichLoadError: function(data, id) {
+      $('#app').html('').append('<div class="modal error"><div class="content">Could not load Soundwich ' + id + '<br />Try <a href="#eat/amsterdam">Amsterdam</a></div></div>');
+      
+    },
+    
+    bootingFinished: function() {
+      this.booting = false;
+      if(this.soundwichToLoad) {
+       this.loadSoundwich(this.soundwichToLoad);
+       this.soundwichToLoad = null;
+      }
+    },
+    
     createSoundwich: function() {
+      
+      var SoundwichLibrary = new SoundwichRecipes();
+      SoundwichLibrary.loadSoundwich('amsterdam', _.bind(this.soundwichLoaded, this));
+      
+      /*
+      SoundwichLibrary.loadSoundwich('amsterdam', _.bind(function(soundwich) {
+        console.log("SOUNDWICH FROM SERVER");
+        console.log(soundwich);
+        console.log(this);
+        this.soundwichViews.push(soundwich);
+        this.render();
+      }, this));
+      */
+      return;
+      
       var recipe = new SoundwichRecipe({
         name: 'Amsterdam Dagwood',
         creator: 'Michael',
@@ -102,6 +175,19 @@ function (
           */
         ])
       });
+      
+      var fs = [];
+      recipe.get('fillings').each(function(filling) {
+        var fj = filling.toJSON();
+        fj.filling = fj.filling.get('key');
+        fs.push(fj);
+      });
+      
+      var data = recipe.toJSON();
+      data.fillings = fs;
+      
+      console.log("SOUNDWICH DATA");
+      console.log(JSON.stringify(data));
       //this.soundwichViews.push(new SoundwichView(recipe));
       
       var recipe2 = new SoundwichRecipe({
@@ -207,25 +293,7 @@ function (
       //this.soundwichViews.push(new SoundwichView(recipe2));
       
       
-      this.render();
-    },
-    
-    render: function() {
       
-      this.template = Haml(template);
-      this.el = this.$el = $(this.template({}));
-      
-      $('#app').replaceWith(this.$el);
-      
-      var $soundwiches = this.$el.find('.soundwiches');
-      var n = 0;
-      _.each(this.soundwichViews, function(soundwichView) {
-        $soundwiches.append(soundwichView.render().$el);
-        soundwichView.afterRender();
-        n++;
-      });
-      $soundwiches.width(n * 600);
-      return this;
     },
         
   });

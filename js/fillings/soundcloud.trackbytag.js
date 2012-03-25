@@ -55,11 +55,7 @@
           {
             type: 'tag',
             value: response.tag_list
-          },
-          {
-            type: 'soundcloud.username',
-            value: response.user.username
-          },
+          }
         ]
         
         cb(data);

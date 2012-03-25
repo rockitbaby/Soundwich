@@ -82,10 +82,7 @@ function (
         
         _.delay(_.bind(function() {
           model.prepare(data, context, _.bind(this.nextFilling, this));
-        }, this), 100);
-        
-        //this.scroller.refresh();
-        //this.zoomTo($('#' + model.get('domID')));
+        }, this), 500);
         
       } else {
         console.log("DONE SANDWICH MADE!!!");
@@ -104,6 +101,10 @@ function (
     },
     
     choose: function(text, choices, cb) {
+      if(!_.isUndefined(cb)) {
+        cb('');
+      }
+      return;
       cb(choices[Math.floor(Math.random() * choices.length)]);
     },
     
@@ -114,6 +115,14 @@ function (
     afterRender: function() {
       
       this.$el.removeClass('empty');
+      
+      var h = $(window).height();
+      $('.soundwiches').height(h - 60);
+      var appH = $('.soundwiches').height();
+      
+      console.log("SETTING APP HEIGHT");
+      console.log(appH);
+      this.$el.height(appH - 60);
       
       var id = _.uniqueId('soundwich-');
       this.$scroller.attr('id', id);
@@ -163,7 +172,7 @@ function (
       this.$userInput.find('.question').text(question);
       this.$userInput.show();
       this.$userInput.find('input').val(defaultValue).focus();
-      this.$userInput.css(({'background-color': '#FF0'})).animate({'background-color': '#CCC'}, 400);
+      this.$userInput.css(({'background-color': '#FF0'})).animate({'background-color': '#222'}, 400);
     },
     
     submitClicked: function(e) {
@@ -191,10 +200,10 @@ function (
     
     zoomIn: function() {
       
-      var appH = $('.soundwiches').height();
+      var appH = this.availableHeight();
       
       this.$rendering.transition({scale: 1}, 300);
-      this.$rendering.height(appH);
+      
       this.$scroller.height(appH);
       
       this.fitted = false;
@@ -205,13 +214,15 @@ function (
       this.scroller.enable();
     },
     
-    zoomOut: function() {
-      
-    },
-    
     zoomInClicked: function(e) {
       e.preventDefault();
       this.zoomIn();
+      _.delay(_.bind(function() {
+        console.log(this.scroller.x);
+        var $el = this.$el.find('.filling').last();
+        console.log($el);
+        this.scroller.scrollToElement($el.get(0), 200);
+      }, this), 10);
     },
     
     zoomOutClicked: function(e) {
@@ -232,6 +243,11 @@ function (
       this.fitIntoWindow();
     },
     
+    availableHeight: function () {
+      return appH = $('.soundwiches').height() - 60;
+    },
+    
+    
     fitIntoWindow: function() {
       
       this.$el.find('.zoom-in').show();
@@ -243,13 +259,8 @@ function (
       
       //this.$rendering.css('-webkit-transform', 'scale(1) translateX(0)');
       var h = this.$rendering.height();
-      var appH = $('.soundwiches').height();
+      var appH = this.availableHeight();
       
-      console.log("Soundwich Height " + h);
-      console.log("App Height " + appH);
-      
-      var extraSpace = 0;
-      h += extraSpace;
       var scale = 1;
       if(h > appH) {
         scale = (appH / h);
@@ -257,7 +268,12 @@ function (
       }
       
       this.fitted = true;
-      this.$el.height(this.$rendering.height() * scale + 60);
+      if(scale < 1) {
+        this.$el.height(this.$rendering.height() * scale + 60);
+      } else {
+        this.$el.height(appH);
+      }
+      
     },
     
     zoomScrollToFilling: function() {

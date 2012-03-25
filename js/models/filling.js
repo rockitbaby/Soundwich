@@ -25,8 +25,6 @@ function (
       },
       exec: {
         prepare: function(data, parameter, context, cb) {
-          // context.$el
-          // context.choose(text, choices, callback)
           context.$el.show();
           console.log('preparing ' + this.get('name'));
           cb(data);

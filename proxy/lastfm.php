@@ -13,7 +13,7 @@ foreach($_GET as $key => $value) {
 }
 $url .= "api_key=" . $API_KEY;
 
-$hash = 'cache/'.md5($url);
+$hash = './cache/'.md5($url);
 
 if (!file_exists($hash) || filemtime($hash) < time() - 1000 * 60 * 30) {
 	$data = file_get_contents($url);

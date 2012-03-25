@@ -78,6 +78,53 @@ header {
   color: #FFF;
   height: 40px;
   position: fixed;
+  z-index: 13;
+}
+
+.modal {
+  width: 400px;
+  position: absolute;
+  left: 50%;
+  top: 20%;
+  margin-left: -240px;
+  padding: 40px;
+  text-align: center;
+  text-transform: uppercase;
+  font-size: 14px;
+  line-height: 20px;
+  background-color: #111;
+  color: #FFF;
+}
+
+.modal .content {
+  padding: 0 20px;
+}
+
+.modal .scooped {
+  text-align: center;
+}
+
+.modal .scoop {
+  background-color: #FF0;
+  color: #000;
+  text-decoration: none;
+}
+
+.modal .scoop a {
+  color: #000;
+  text-decoration: none;
+}
+
+.modal a {
+  color: #FFF;
+}
+
+.intro .content {
+  text-align: left;
+}
+
+.error {
+  background-color: #C00;
 }
 
 header .logo {
@@ -91,6 +138,20 @@ header .logo {
 
 header .logo span {
   color: #CCC;
+}
+
+header .credits {
+  float: right;
+  width: 50%;
+  color: #FFF;
+  margin: 14px 20px 0 0;
+  text-align: right;
+  font-size: 12px;
+  line-height: 20px;
+}
+
+header .credits a {
+  color: #FFF;
 }
 
 header .info {
@@ -114,16 +175,17 @@ header .info .recipe {
 
 .soundwiches {
   position: absolute;
-  bottom: 40px;
+  top: 50px;
   height: 80%;
   width: 100%;
 }
 
 .soundwich {
-  position: relative;
+  position: absolute;
   float: left;
   width: 500px;
   margin: 0 40px;
+  bottom: 0;
   /*
   left: 50%;
   margin-left: -280px;
@@ -138,10 +200,11 @@ header .info .recipe {
   position: absolute;
   width: 420px;
   height: 380px;
-  margin-left: -202px;
+  margin-left: -214px;
   left: 50%;
-  background: #CCC;
-  border: 2px solid RGBA(255, 255, 255, 0.8);
+  background: #EEE;
+  border: 24x solid #FFF;
+  color: #FFF;
 }
 
 .soundwich .user-input .content {
@@ -150,7 +213,7 @@ header .info .recipe {
 
 .soundwich .user-input .content input {
   font-size: 24px;
-  border: 1px solid #333;
+  border: 1px solid #555;
   font-family: Helvetica Neue, Helvetica, sans-serif;
   width: 360px;
   padding: 10px 10px;
@@ -159,12 +222,16 @@ header .info .recipe {
 
 .soundwich .user-input .content .submit {
   text-transform: uppercase;
-  border: 1px solid #333;
+  border: 1px solid #555;
   padding: 5px;
   margin: 5px 0;
   width: 120px;
   text-align: center;
   float: right;
+  text-transform: uppercase;
+  border-radius: 3px;
+  background-color: #CCC;
+  color: #000;
 }
 
 .empty {
@@ -180,7 +247,7 @@ header .info .recipe {
   bottom: 0;
   width: 100%;
   z-index: 11;
-  height: 40px;
+  height: 60px;
   _background: transparent url('css/wood.jpg') no-repeat bottom left;
   border-top: 1px solid #000;
 }
@@ -188,17 +255,28 @@ header .info .recipe {
 .soundwich .actions .title {
   width: 100%;
   text-align: center;
+  text-transform: uppercase;
+  font-weight: bold;
+  height: 30px;
+  line-height: 30px;
 }
 
-.soundwich .actions div {
+.soundwich .actions .buttons div {
   float: left;
   margin: 0 10px;
-  line-height: 20px;
+  line-height: 16px;
+  font-size: 10px;
+  text-transform: uppercase;
+  border: 1px solid #333;
+  background-color: #CCC;
+  padding: 1px 8px;
+  border-radius: 2px;
+  color: #333;
 }
 
 .rendering {
   position: absolute;
-  bottom: 60px;
+  bottom: 80px;
   width: 100%;
   -webkit-transform-origin: 50% 100%;
 }
@@ -216,20 +294,22 @@ header .info .recipe {
 .bread {
   width: 480px;
   margin: 0 auto;
-  height: 200px;
+  height: 80px;
   background: none;
   background-color: #000;
-  background: transparent url('css/speaker-top.gif') no-repeat 50% 50%;
+  background: transparent url('css/speaker-top-test.gif') no-repeat 100% 100%;
 }
 
 .bread.top {
   _border-radius: 30px 30px 0 0;
   margin: 0 auto 20px;
+  opacity: 0.5;
 }
 
 .bread.bottom {
   border-radius: 0 0 30px 30px;
-  background: transparent url('css/speaker-bottom.gif') no-repeat 50% 50%;
+  background: transparent url('css/speaker-bottom-test.gif') no-repeat 100% 0%;
+  opacity: 0.5;
 }
 
 .fillings {
@@ -258,6 +338,10 @@ header .info .recipe {
   font-weight: normal;
   border-bottom: 1px solid #000;
   text-transform: uppercase;
+}
+
+.soundwich .user-input h2 {
+  border-bottom: 1px solid #FFF;
 }
 
 .filling .content .scoop {
@@ -350,6 +434,14 @@ header .info .recipe {
 
 .musicmetric {
   background-color: #c0d460;
+}
+
+.soundcloud {
+  background-color: #e67c24;
+}
+
+.soundwidge {
+  background-color: #FF0;
 }
 
 a  {

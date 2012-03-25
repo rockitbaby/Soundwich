@@ -1,31 +1,24 @@
 define([
   'jquery'
-  , 'models/filling'
-  , 'collections/parameter_types'
-  , 'collections/parameter_library'
+  , 'models/soundwich_recipe'
+  , 'collections/filling_library'
+  , 'collections/filling_stack'
   , 'lib/api_factory'
 ],
 function (
   $
-  , Filling
-  , ParameterTypes
-  , ParameterLibrary
+  , SoundwichRecipe
+  , FillingLibrary
+  , FillingStack
   , APIFactory
 ) {
+
   
-  var Fillings = Backbone.Collection.extend({
-      model: Filling,
+  var SoundwichRecipes = Backbone.Collection.extend({
+      model: SoundwichRecipe,
       
       getByKey: function(key) {
         var found = this.find(function(model){ return model.get('key') == key; });
-        
-        console.log(key);
-        console.log(typeof found);
-        console.log(found);
-        if(_.isUndefined(found)) {
-          console.log('Key ' + key + ' not found in Fillings');
-          return false;
-        }
         return found;
       },
       
@@ -48,8 +41,43 @@ function (
         }
       },
       
-      loadFillingDefinition: function(file, cb) {
+      soundwichLoaded: function(data, cb) {
+        
+        var fillings = [];
+        _.each(data.fillings, function(filling) {
+          
+          var appearance = filling;
+          appearance.filling = FillingLibrary.getByKey(filling.filling);
+          fillings.push(appearance);
+        });
+        
+        data.fillings = new FillingStack(fillings);
+        
+        var soundwich = new SoundwichRecipe(data);
+        this.add(soundwich);
+        cb.apply(this, [soundwich]);
+      },
+      
+      loadSoundwich: function(id, cb, cbError) {
         this.loaded++;
+        var req = {
+          id: id
+        };
+        var settings = {
+          url: window.BASE_URL + '/api/soundwiches.php',
+          success: _.bind(function(data) {
+            this.soundwichLoaded(data, cb)
+          }, this),
+          error: function(data) {
+            cbError.apply(this, [data, id])
+          },
+          data: req,
+          format: 'json',
+          type: 'GET',
+        }
+        
+        $.ajax(settings);
+        return;
         require(['require/text!' + file + '?v=' + Math.random()], _.bind(function(fillingDef) {
 
           var parts = fillingDef.split('/* template */');
@@ -87,12 +115,7 @@ function (
           filling.templateText = parts[1];
           filling.definitionFile = file;
           
-          var fillingObj = new Filling(filling);
-          console.log("Added " + filling.key);
-          console.log(fillingObj);
-          this.add([fillingObj]);
           
-          /*
           var existing = this.getByKey(filling.key);
           if(existing) {
             console.log('Filling or key ' + filling.key + ' allready exits. Updating!');
@@ -101,9 +124,8 @@ function (
               cb.apply(this, existing);
             }
           } else {
-            this.add(new Filling(filling));
+            this.add([filling]);
           }
-          */
           this.loaded--;
           this.triggerLoaded();
         }, this));
@@ -111,6 +133,6 @@ function (
       }
   });
   
-  return Fillings;
+  return SoundwichRecipes;
   
 });
