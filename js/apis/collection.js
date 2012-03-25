@@ -4,7 +4,7 @@ define([
 function(
   $
 ) {
-  var BASE_URL = window.BASE_URL;
+  window.BASE_URL;
   return {
     'lastfm': function() {
       return {
@@ -13,7 +13,7 @@ function(
         },
         query: function(req, cb) {
           var settings = {
-            url: BASE_URL + '/proxy/lastfm.php',
+            url: window.BASE_URL + '/proxy/lastfm.php',
             success: cb,
             data: req,
             type: 'GET'
@@ -29,7 +29,7 @@ function(
         },
         query: function(req, cb) {
           var settings = {
-            url: BASE_URL + '/proxy/musixmatch.php',
+            url: window.BASE_URL + '/proxy/musixmatch.php',
             success: cb,
             data: req,
             type: 'GET'

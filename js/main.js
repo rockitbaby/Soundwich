@@ -19,8 +19,8 @@ function(
   , App
 ) {
   
-  //var BASE_URL = 'http://rockitbaby.de/projects/soundwich/app';
-  var BASE_URL = 'http://localhost:8888';
-  window.BASE_URL = ''
+  var BASE_URL = 'http://rockitbaby.de/projects/soundwich/app';
+  //var BASE_URL = 'http://localhost:8888';
+  window.BASE_URL = BASE_URL;
   App.initialize(); 
 });
