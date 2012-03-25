@@ -133,6 +133,48 @@ header .info .recipe {
   _background: transparent url('css/sw-bg.jpg') no-repeat bottom left;
 }
 
+.soundwich .user-input {
+  z-index: 12;
+  position: absolute;
+  width: 420px;
+  height: 380px;
+  margin-left: -202px;
+  left: 50%;
+  background: #CCC;
+  border: 2px solid RGBA(255, 255, 255, 0.8);
+}
+
+.soundwich .user-input .content {
+  padding: 20px;
+}
+
+.soundwich .user-input .content input {
+  font-size: 24px;
+  border: 1px solid #333;
+  font-family: Helvetica Neue, Helvetica, sans-serif;
+  width: 360px;
+  padding: 10px 10px;
+  margin: 5px 0;
+}
+
+.soundwich .user-input .content .submit {
+  text-transform: uppercase;
+  border: 1px solid #333;
+  padding: 5px;
+  margin: 5px 0;
+  width: 120px;
+  text-align: center;
+  float: right;
+}
+
+.empty {
+  height: 500px;
+}
+
+.empty .rendering {
+  display: none;
+}
+
 .soundwich .actions {
   position: absolute;
   bottom: 0;
@@ -209,6 +251,7 @@ header .info .recipe {
   padding: 20px 40px;
 }
 
+.soundwich .user-input h2,
 .filling .content h2 {
   margin: 0;
   font-size: 12px;
@@ -227,6 +270,15 @@ header .info .recipe {
   font-family: Georgia;
 }
 
+.filling .content .lyrics {
+  font-family: Georgia;
+  line-height: 21px;
+  font-size: 14px;
+  text-align: center;
+  margin: 20px 0 0 0;
+}
+
+.soundwich .user-input .question,
 .filling .content .scoop h3 {
   font-size: 48px;
   line-height: 48px;
@@ -240,6 +292,13 @@ header .info .recipe {
   font-weight: light;
   font-family: Georgia;
   margin: 0;
+}
+
+.filling .content .list {
+  margin: 20px 0;
+  font-size: 14px;
+  font-weight: light;
+  font-family: Georgia;
 }
 
 .filling .content .img {
@@ -277,6 +336,29 @@ header .info .recipe {
   margin: 2px auto;
 }
 
+.echonest {
+  background-color: #4fb1ed;
+}
+
+.musixmatch {
+  background-color: #eb691d;
+}
+
+.lastfm {
+  background-color: #ce3311;
+}
+
+.musicmetric {
+  background-color: #c0d460;
+}
+
+a  {
+  color: #000;
+}
+
+.drinkify {
+  background-color: #ecedd9;
+}
 
 .sep-bread {
   width: 95%;

@@ -49,7 +49,7 @@
         context.$content.css('height', 'auto');
         var terms = '';
         _.each(response.artist.terms, function(term) {
-          if(term.frequency > 0.6) {
+          if(term.frequency > 0.8) {
             terms += '<span class="term" style="font-size: ' + (8 + (term.frequency * 40)) + 'px">' + term.name + ' / </span> ';
           }
         });
@@ -70,6 +70,10 @@
             type: 'artist',
             value: response.artist.name
           },
+          {
+            type: 'tag',
+            value: response.artist.terms[0].name
+          }
         ]
         
         cb(data);

@@ -10,10 +10,11 @@ function (
   
     events: {
       'click .add-filling': 'addNewFilling',
-      'click .filling': 'zoomTo',
+      'click .filling': 'zoomToClicked',
       'click .zoom-in': 'zoomInClicked',
       'click .zoom-out': 'zoomOutClicked',
       'click .restart': 'restartClicked',
+      'click .submit': 'submitClicked',
     },
     
     $rendering: $,
@@ -22,15 +23,15 @@ function (
     $filling: $,
     scroller: null,
     fitted: false,
-    initialInput: null,
-    initialize: function(model, initialInput) {
+    
+    initialize: function(model) {
       this.model = model;
-      this.initialInput = initialInput;
+      this.initialInput = null;
       this.model.get('fillings').orderdFillings();
       
     },
     
-    render: function() {
+    render: function($el) {
       
       this.template = Haml(template);
       
@@ -39,12 +40,14 @@ function (
       _.each(data.fillings, function(fill, ix) {
         data.fillings[ix] = fill.toJSON();
       });
-      console.log(data.fillings);
       this.el = this.$el = $(this.template(data));
       this.$rendering = this.$el.find('.rendering');
       this.$scroller = this.$el.find('.soundwich-scroller');
       this.$actions = this.$el.find('.actions');
       this.$fillings = this.$el.find('.fillings');
+      this.$userInput = this.$el.find('.user-input');
+      
+      this.$el.addClass('empty');
       
       this.delegateEvents();
       
@@ -55,18 +58,9 @@ function (
     prepare: function() {
       this.i = 0;
       
-      /*
       this.nextFilling({
         'in': null,
-        'out': [{
-          type: 'mbid.track',
-          value: '9f7bac6a-0231-4fc3-b277-2a4c000ee606'
-        }]
-      });
-      */
-      this.nextFilling({
-        'in': null,
-        'out': [this.initialInput]
+        'out': null
       });
     },
     
@@ -81,12 +75,29 @@ function (
         var context = {
           $el: this.$el.find('#' + model.get('domID')),
           $content: this.$el.find('#' + model.get('domID') + ' .content'),
+          userInput: _.bind(this.userInput, this),
           choose: _.bind(this.choose, this),
           unsupportedInput: _.bind(this.choose, this)
         }
-        model.prepare(data, context, _.bind(this.nextFilling, this));
+        
+        _.delay(_.bind(function() {
+          model.prepare(data, context, _.bind(this.nextFilling, this));
+        }, this), 100);
+        
+        //this.scroller.refresh();
+        //this.zoomTo($('#' + model.get('domID')));
+        
       } else {
         console.log("DONE SANDWICH MADE!!!");
+        
+        /*
+        this.scroller.refresh();
+        this.scroller.scrollTo(0, 0);
+        _.delay(_.bind(function() {
+          console.log("HIII INTO");
+          this.fitIntoWindow();
+        }, this), 1500);
+        */
       }
       
       this.fitIntoWindow();
@@ -102,6 +113,7 @@ function (
     
     afterRender: function() {
       
+      this.$el.removeClass('empty');
       
       var id = _.uniqueId('soundwich-');
       this.$scroller.attr('id', id);
@@ -132,14 +144,36 @@ function (
     },
     
     restartClicked: function(e) {
-      
+      e.preventDefault();
+      this.restart();
     },
     
     restart: function() {
       
+      var old = this.$el;
+      this.model.reset();
+      this.render();
+      old.replaceWith(this.$el);
+      this.afterRender();
     },
     
-    zoomTo: function(e) {
+    userInputCallback: null,
+    userInput: function(question, defaultValue, cb) {
+      this.userInputCallback = cb;
+      this.$userInput.find('.question').text(question);
+      this.$userInput.show();
+      this.$userInput.find('input').val(defaultValue).focus();
+      this.$userInput.css(({'background-color': '#FF0'})).animate({'background-color': '#CCC'}, 400);
+    },
+    
+    submitClicked: function(e) {
+      this.$userInput.hide();
+      if(_.isFunction(this.userInputCallback)) {
+        this.userInputCallback.apply(this, [this.$userInput.find('input').val()]);
+      }
+    },
+    
+    zoomToClicked: function(e) {
       e.preventDefault();
       
       var $el = $(e.target);
@@ -147,9 +181,12 @@ function (
         $el = $el.parents('.filling');
       }
       
-      this.zoomIn();
+      this.zoomTo($el);
+    },
+    
+    zoomTo: function($el) {
+      this.zoomIn($el);
       this.scroller.scrollToElement($el.get(0));
-      
     },
     
     zoomIn: function() {
@@ -157,6 +194,7 @@ function (
       var appH = $('.soundwiches').height();
       
       this.$rendering.transition({scale: 1}, 300);
+      this.$rendering.height(appH);
       this.$scroller.height(appH);
       
       this.fitted = false;

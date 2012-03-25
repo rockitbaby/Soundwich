@@ -55,6 +55,40 @@ function(
         }
       }  
     },
+    'musicmetric': function() {
+      return {
+        
+        query: function(method, req, cb) {
+          req['token'] = '1018c0f586f84b37ba03268d6d736cd4';
+          req['format'] = 'jsonp';
+          var settings = {
+            url: 'http://api.semetric.com/' + method,
+            success: cb,
+            data: req,
+            type: 'GET',
+            dataType: "jsonp"
+          }
+          $.ajax(settings);
+        }
+      }  
+    },
+    'soundcloud': function() {
+      return {
+        
+        query: function(method, req, cb) {
+          req['client_id'] = 'M6fFMCpbKJq2WSWcl8xkkg';
+          req['format'] = 'jsonp';
+          var settings = {
+            url: 'http://api.soundcloud.com/' + method,
+            success: cb,
+            data: req,
+            type: 'GET',
+            dataType: "jsonp"
+          }
+          $.ajax(settings);
+        }
+      }  
+    },
   }
   
 }

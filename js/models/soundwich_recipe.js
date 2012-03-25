@@ -12,7 +12,14 @@ function (
         name: 'untitled',
         creator: 'unknown',
         description: '',
-        fillings: new FillingStack()
+        fillings: new FillingStack(),
+      },
+      
+      reset: function() {
+        
+        this.get('fillings').each(function(filling) {
+          filling.set({'prepared' : false});
+        });
       }
   });
 

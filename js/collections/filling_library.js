@@ -73,7 +73,12 @@ function (
   FillingLibrary.loadFillingDefinition('js/fillings/echonest.terms.js');
   //FillingLibrary.loadFillingDefinition('js/fillings/musixmatch.tracks.js');
   FillingLibrary.loadFillingDefinition('js/fillings/musixmatch.lyrics.js');
-      
+  FillingLibrary.loadFillingDefinition('js/fillings/soundwidge.askforartist.js');
+  FillingLibrary.loadFillingDefinition('js/fillings/soundwidge.askfortrackid.js');
+  FillingLibrary.loadFillingDefinition('js/fillings/musicmetric.countries.js');
+  FillingLibrary.loadFillingDefinition('js/fillings/drinkify.iframe.js');
+  FillingLibrary.loadFillingDefinition('js/fillings/soundcloud.trackbytag.js');
+              
   return FillingLibrary;
   
 });

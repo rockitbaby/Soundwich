@@ -35,6 +35,10 @@ function (
     {
       key: 'mbid.track',
       defaultValue: 'untitled'
+    },
+    {
+      key: 'tag',
+      defaultValue: 'untitled'
     }
   ]);
   

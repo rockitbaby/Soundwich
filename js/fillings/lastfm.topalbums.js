@@ -14,12 +14,6 @@
       
       console.log('========= ========= ========= ========= ');
       console.log('preparing ' + this.get('name'));
-      console.log('DATA');
-      console.log(data);
-      console.log('PARAMETER');
-      console.log(parameter);
-      console.log('CONTEXT');
-      console.log(context);
       
       var req = {
         'method': 'artist.gettopalbums',
@@ -41,15 +35,19 @@
         }
       }
       
+      var t = this.template();
       this.API().query(req, function(res) {
         
-        console.log(res);
         var album = res.topalbums.album[parameter.nAlbum];
         context.$el.show();
-        context.$content.height(200);
-        var h = '<img src="' + album.image[2]['#text'] + '">';
-        h += album.name;
-        h += ' is the top album by ' + album.artist.name;
+        context.$content.css('height', 'auto');
+        
+        var h = t({
+          artist_name: album.artist.name,
+          album_name: album.name,
+          img_src: album.image[2]['#text']
+        });
+        
         context.$content.html(h);
         
         data['out'] = [
@@ -80,3 +78,17 @@
 
 
 /* template */
+
+<div class="box lastfm lastfm-topalbums">
+  <h2 class="title">Top Album</h2>
+  <div class="scoop">
+    <h3><%= album_name %></h3>
+    <p>is <%= artist_name %>'s top album</p>
+  </div>
+  <div class="img">
+    <img src="<%= img_src %>" />
+  </div>
+  <div class="credits">
+    says last.fm
+  </div>
+</div>
